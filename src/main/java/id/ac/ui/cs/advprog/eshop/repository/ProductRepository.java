@@ -16,7 +16,17 @@ public class ProductRepository {
         return product;
     }
 
-    public Iterator<Product> findAll() {
+    public Iterator<Product> findAll () {
         return productData.iterator();
+
+    }
+    public Product update(Product updatedProduct) {
+        Product existingProduct = productData.stream()
+            .filter(p -> p.getProductId().equals(updatedProduct.getProductId()))
+            .findFirst()
+            .orElseThrow(() -> new RuntimeException("Product not found"));
+        existingProduct.setProductName(updatedProduct.getProductName());
+        existingProduct.setProductQuantity(updatedProduct.getProductQuantity());
+        return existingProduct;
     }
 }
