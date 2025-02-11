@@ -4,7 +4,7 @@ I use some clean code priciples in this code for example like meaningful names l
 
 ## Reflection 2
 
-It feels reasuring to know that the code i just worked on worked as intended after writing the unit test. For each class, i feel like it's best to write a few test for it to cover all possibilities that might
+1. It feels reasuring to know that the code i just worked on worked as intended after writing the unit test. For each class, i feel like it's best to write a few test for it to cover all possibilities that might
 happen. Having 100% coverage on your code doesn't mean that the code is bug free, it just means that each line of code is already executed by tests but there could be still bugs left in the source code.
 
 2. Creating a new functional test suite similar to CreateProductFunctionalTest.java can lower code quality due to duplicated setup, variables, and methods. This repetition makes the code harder to maintain, as
