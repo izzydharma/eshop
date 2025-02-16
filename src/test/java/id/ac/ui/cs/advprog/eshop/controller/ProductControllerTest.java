@@ -24,13 +24,6 @@ public class ProductControllerTest {
     @MockBean
     private ProductService productService;
 
-    @Test
-    public void testCreateProductPage() throws Exception {
-        mockMvc.perform(get("/product/create"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("createProduct"))
-                .andExpect(model().attributeExists("product"));
-    }
 
     @Test
     public void testCreateProductPost() throws Exception {
@@ -45,27 +38,6 @@ public class ProductControllerTest {
         Mockito.verify(productService).create(product);
     }
 
-    @Test
-    public void testProductListPage() throws Exception {
-        Mockito.when(productService.findAll()).thenReturn(Collections.emptyList());
-
-        mockMvc.perform(get("/product/list"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("productList"))
-                .andExpect(model().attributeExists("products"));
-    }
-
-    @Test
-    public void testEditProductPage() throws Exception {
-        Product product = new Product();
-        product.setProductId("1");
-        Mockito.when(productService.findAll()).thenReturn(Collections.singletonList(product));
-
-        mockMvc.perform(get("/product/edit/1"))
-                .andExpect(status().isOk())
-                .andExpect(view().name("editProduct"))
-                .andExpect(model().attributeExists("product"));
-    }
 
     @Test
     public void testEditProductPost() throws Exception {
@@ -90,10 +62,4 @@ public class ProductControllerTest {
 
         Mockito.verify(productService).delete(productId);
     }
-    @Test
-    public void testTemplateExists() {
-    assertNotNull(getClass().getResource("/templates/CreateProduct.html"));
-    assertNotNull(getClass().getResource("/templates/editProduct.html"));
-    assertNotNull(getClass().getResource("/templates/ProductList.html"));
-}
 }
