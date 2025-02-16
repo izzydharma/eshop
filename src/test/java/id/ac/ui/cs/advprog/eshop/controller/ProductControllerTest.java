@@ -24,6 +24,13 @@ public class ProductControllerTest {
     @MockBean
     private ProductService productService;
 
+    @Test
+    public void testCreateProductPage() throws Exception {
+        mockMvc.perform(get("/product/create"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("CreateProduct"))
+                .andExpect(model().attributeExists("product"));
+    }
 
     @Test
     public void testCreateProductPost() throws Exception {
@@ -38,6 +45,27 @@ public class ProductControllerTest {
         Mockito.verify(productService).create(product);
     }
 
+    @Test
+    public void testProductListPage() throws Exception {
+        Mockito.when(productService.findAll()).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(get("/product/list"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("ProductList"))
+                .andExpect(model().attributeExists("products"));
+    }
+
+    @Test
+    public void testEditProductPage() throws Exception {
+        Product product = new Product();
+        product.setProductId("1");
+        Mockito.when(productService.findAll()).thenReturn(Collections.singletonList(product));
+
+        mockMvc.perform(get("/product/edit/1"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("EditProduct"))
+                .andExpect(model().attributeExists("product"));
+    }
 
     @Test
     public void testEditProductPost() throws Exception {
