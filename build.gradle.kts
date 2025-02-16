@@ -1,5 +1,6 @@
 plugins {
     java
+    jacoco
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
 }
@@ -27,7 +28,6 @@ val seleniumJavaVersion = "4.14.1"
 val seleniumJupiterVersion = "5.0.1"
 val webdrivermanagerVersion = "5.6.3"
 
-
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
@@ -40,28 +40,38 @@ dependencies {
     testImplementation("io.github.bonigarcia:selenium-jupiter:5.0.1")
     testImplementation("io.github.bonigarcia:webdrivermanager:5.6.3")
     testImplementation("org.junit.jupiter:junit-jupiter")
-
 }
 
-tasks.register<Test>( "unitTest") {
+tasks.register<Test>("unitTest") {
     description = "Runs unit tests."
     group = "verification"
 
     filter {
         excludeTestsMatching("*FunctionalTest")
-
     }
 }
-    tasks.register<Test>( "functionalTest") {
+
+tasks.register<Test>("functionalTest") {
     description = "Runs functional tests."
     group = "verification"
 
     filter {
         includeTestsMatching("*FunctionalTest")
-
     }
-
 }
+
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
+}
+
+tasks.named<Test>("test") {
+    filter {
+        excludeTestsMatching("*FunctionalTest")
+    }
+    finalizedBy(tasks.named("jacocoTestReport"))
+}
+
+tasks.named<JacocoReport>("jacocoTestReport") {
+    dependsOn(tasks.named("test"))
+    mustRunAfter(tasks.named("test"))
 }
