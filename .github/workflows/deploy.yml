@@ -1,0 +1,22 @@
+name: Deploy to Koyeb
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v3
+
+      - name: Install Koyeb CLI
+        run: |
+          curl -s https://get.koyeb.com | bash
+          sudo mv koyeb /usr/local/bin/
+
+      - name: Deploy to Koyeb
+        run: |
+          koyeb login --api-key ${{ secrets.KOYEB_API_TOKEN }}
+          koyeb service redeploy vague-tatiana/eshop
