@@ -50,6 +50,10 @@ sourceSets {
     }
 }
 
+tasks.withType<ProcessResources> {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+}
+
 tasks.register<Test>("unitTest") {
     description = "Runs unit tests."
     group = "verification"
