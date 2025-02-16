@@ -11,6 +11,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.UUID;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -27,7 +28,7 @@ public class ProductControllerTest {
     public void testCreateProductPage() throws Exception {
         mockMvc.perform(get("/product/create"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("CreateProduct"))
+                .andExpect(view().name("createProduct"))
                 .andExpect(model().attributeExists("product"));
     }
 
@@ -50,7 +51,7 @@ public class ProductControllerTest {
 
         mockMvc.perform(get("/product/list"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("ProductList"))
+                .andExpect(view().name("productList"))
                 .andExpect(model().attributeExists("products"));
     }
 
@@ -62,7 +63,7 @@ public class ProductControllerTest {
 
         mockMvc.perform(get("/product/edit/1"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("EditProduct"))
+                .andExpect(view().name("editProduct"))
                 .andExpect(model().attributeExists("product"));
     }
 
@@ -89,4 +90,10 @@ public class ProductControllerTest {
 
         Mockito.verify(productService).delete(productId);
     }
+    @Test
+    public void testTemplateExists() {
+    assertNotNull(getClass().getResource("/templates/CreateProduct.html"));
+    assertNotNull(getClass().getResource("/templates/editProduct.html"));
+    assertNotNull(getClass().getResource("/templates/ProductList.html"));
+}
 }
