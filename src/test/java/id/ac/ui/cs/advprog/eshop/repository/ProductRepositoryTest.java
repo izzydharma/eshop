@@ -111,6 +111,12 @@ class ProductRepositoryTest {
 
     @Test
     void testDeleteNonExistentProduct() {
+        Iterator<Product> productsBeforeDelete = productRepository.findAll();
+        assertFalse(productsBeforeDelete.hasNext());
+
         productRepository.delete("non-existent-id");
+
+        Iterator<Product> productsAfterDelete = productRepository.findAll();
+        assertFalse(productsAfterDelete.hasNext());
     }
 }
