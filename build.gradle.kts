@@ -42,6 +42,14 @@ dependencies {
     testImplementation("org.junit.jupiter:junit-jupiter")
 }
 
+sourceSets {
+    main {
+        resources {
+            srcDir("src/main/resources")
+        }
+    }
+}
+
 tasks.register<Test>("unitTest") {
     description = "Runs unit tests."
     group = "verification"
