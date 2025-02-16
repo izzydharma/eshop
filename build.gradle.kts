@@ -3,6 +3,8 @@ plugins {
     jacoco
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
+    id("org.sonarqube") version "6.0.1.5171"
+
 }
 
 group = "id.ac.ui.cs.advprog"
@@ -74,4 +76,12 @@ tasks.named<Test>("test") {
 tasks.named<JacocoReport>("jacocoTestReport") {
     dependsOn(tasks.named("test"))
     mustRunAfter(tasks.named("test"))
+
+}
+sonar {
+    properties {
+        property("sonar.projectKey", "izzydharma_eshop")
+        property("sonar.organization", "izzydharma")
+        property("sonar.host.url", "https://sonarcloud.io")
+    }
 }
