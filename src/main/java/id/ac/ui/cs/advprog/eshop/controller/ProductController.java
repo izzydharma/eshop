@@ -50,18 +50,18 @@ public class ProductController {
                 return "EditProduct";
             }
         }
-        return "REDIRECT_PRODUCT_LIST";
+        return REDIRECT_PRODUCT_LIST;
     }
 
     @PostMapping("/edit")
     public String editProductPost(@ModelAttribute Product product) {
         service.update(product);
-        return "REDIRECT_PRODUCT_LIST";
+        return REDIRECT_PRODUCT_LIST;
     }
     
     @GetMapping("/delete/{id}")
     public String deleteProduct(@PathVariable("id") String id) {
         service.delete(id);
-        return "REDIRECT_PRODUCT_LIST";
+        return REDIRECT_PRODUCT_LIST;
     }
 }
