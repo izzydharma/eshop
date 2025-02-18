@@ -98,4 +98,13 @@ public class ProductControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrl("/product/list"));
     }
+
+    @Test
+    public void testEditProductPageProductNotFound() throws Exception {
+    Mockito.when(productService.findAll()).thenReturn(Collections.emptyList());
+
+    mockMvc.perform(get("/product/edit/nonexistent-id"))
+            .andExpect(status().is3xxRedirection())
+            .andExpect(redirectedUrl("/product/list"));
+}
 }
