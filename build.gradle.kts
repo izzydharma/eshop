@@ -80,7 +80,7 @@ tasks.named<JacocoReport>("jacocoTestReport") {
 }
 sonar {
     properties {
-        property("sonar.projectKey", "izzydharma_eshop2")
+        property("sonar.projectKey", "izzydharma_eshop")
         property("sonar.organization", "izzydharma")
         property("sonar.host.url", "https://sonarcloud.io")
     }
