@@ -90,4 +90,12 @@ public class ProductControllerTest {
 
         Mockito.verify(productService).delete(productId);
     }
+    @Test
+    public void testEditProductPageNotFound() throws Exception {
+        Mockito.when(productService.findAll()).thenReturn(Collections.emptyList());
+
+        mockMvc.perform(get("/product/edit/999"))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("/product/list"));
+    }
 }
