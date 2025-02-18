@@ -10,3 +10,9 @@ happen. Having 100% coverage on your code doesn't mean that the code is bug free
 2. Creating a new functional test suite similar to CreateProductFunctionalTest.java can lower code quality due to duplicated setup, variables, and methods. This repetition makes the code harder to maintain, as
 updates in shared logic need to be made in multiple places, increasing the risk of errors. It also reduces readability and can lead to inconsistent or fragile tests. To improve, shared logic should be moved to a
 base class or utility methods. These changes make the tests cleaner and easier to maintain.
+
+## Reflection 3
+
+1. I fixed a code duplication problem in my ProductController where it have a duplicate literal, so i make a variable for that literal and the all of the fucntion that refers to that literal uses the variable instead.
+   
+2. The workflows automatically run tests on every push or pull request, ensuring that new code is frequently integrated and verified. THe source code also include an automated deployment process that triggers on updates to the main branch, enabling changes to rapidly reach the production environment. These features match the typical definition of Continuous Integration and Continuous Deployment by automating build, test, and release steps.
