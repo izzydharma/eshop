@@ -111,6 +111,6 @@ class ProductRepositoryTest {
 
     @Test
     void testDeleteNonExistentProduct() {
-        productRepository.delete("non-existent-id");
+        assertDoesNotThrow(() -> productRepository.delete("non-existent-id")); 
     }
 }
