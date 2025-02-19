@@ -5,7 +5,9 @@ import id.ac.ui.cs.advprog.eshop.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 
 import java.util.Collections;
 import java.util.Iterator;
@@ -17,13 +19,10 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class ProductServiceImplTest {
 
-    private final ProductServiceImpl productService;
+    @Autowired
+    private ProductServiceImpl productService;
 
-    public ProductServiceImplTest(ProductServiceImpl productService) {
-        this.productService = productService;
-    }
-
-    
+    @MockBean
     private ProductRepository productRepository;
 
     private Product product;
