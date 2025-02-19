@@ -5,7 +5,6 @@ import id.ac.ui.cs.advprog.eshop.service.ProductService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
 import java.util.Collections;
 import java.util.UUID;
@@ -17,13 +16,13 @@ public class ProductControllerTest {
 
     private final MockMvc mockMvc;
 
-    @MockBean
+    
     private ProductService productService;
 
     public ProductControllerTest(MockMvc mockMvc) {
         this.mockMvc = mockMvc;
     }
-    
+
     @Test
     public void testCreateProductPage() throws Exception {
         mockMvc.perform(get("/product/create"))
