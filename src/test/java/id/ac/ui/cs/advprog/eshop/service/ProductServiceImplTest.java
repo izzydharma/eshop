@@ -19,8 +19,11 @@ import static org.junit.jupiter.api.Assertions.*;
 @SpringBootTest
 public class ProductServiceImplTest {
 
-    @Autowired
-    private ProductServiceImpl productService;
+    private final ProductServiceImpl productService;
+
+    public ProductServiceImplTest(ProductServiceImpl productService) {
+        this.productService = productService;
+    }
 
     @MockBean
     private ProductRepository productRepository;
