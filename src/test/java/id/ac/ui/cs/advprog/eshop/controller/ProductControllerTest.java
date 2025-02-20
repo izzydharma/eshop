@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -106,4 +108,20 @@ public class ProductControllerTest {
             .andExpect(status().is3xxRedirection())
             .andExpect(redirectedUrl("/product/list"));
 }
+@Test
+    public void testEditProductPageWithNullProductIdInList() throws Exception {
+        Product productNull = new Product();
+        productNull.setProductId(null);
+
+        Product productMatch = new Product();
+        productMatch.setProductId("edge-case-id");
+
+        Mockito.when(productService.findAll()).thenReturn(Arrays.asList(productNull, productMatch));
+
+        mockMvc.perform(get("/product/edit/edge-case-id"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("EditProduct"))
+                .andExpect(model().attributeExists("product"))
+                .andExpect(model().attribute("product", productMatch));
+    }
 }
