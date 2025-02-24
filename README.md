@@ -13,6 +13,6 @@ base class or utility methods. These changes make the tests cleaner and easier t
 
 ## Reflection 3
 
-1. I fixed a code duplication problem in my ProductController where it have a duplicate literal, so i make a variable for that literal and the all of the fucntion that refers to that literal uses the variable instead.
-   
+1. I fixed a code duplication problem in my ProductController where it have a duplicate literal, so i make a variable for that literal and the all of the fucntion that refers to that literal uses the variable instead. I fixed assesrtion to the testDeleteNonExistentProduct(). I deleted a not used insertion org.junit.jupiter.api.Assertions.assertNotNull. Not hardcoding version number fixed by setting a variable to the code version and calling it for the dependecies. Removed the declaration of thrown exception 'java.lang.Exception', as it cannot be thrown from method's body.
+
 2. The workflows automatically run tests on every push or pull request, ensuring that new code is frequently integrated and verified. THe source code also include an automated deployment process that triggers on updates to the main branch, enabling changes to rapidly reach the production environment. These features match the typical definition of Continuous Integration and Continuous Deployment by automating build, test, and release steps.
