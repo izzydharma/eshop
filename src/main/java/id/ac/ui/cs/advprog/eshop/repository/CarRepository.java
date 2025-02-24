@@ -10,6 +10,8 @@ import java.util.UUID;
 public class CarRepository {
     private List<Car> carData = new ArrayList<>();
 
+    static int id = 0;
+
     public Car create(Car car) {
         if (car.getCarId() == null) {
             UUID uuid = UUID.randomUUID();
