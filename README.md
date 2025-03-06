@@ -25,13 +25,13 @@ base class or utility methods. These changes make the tests cleaner and easier t
   Each class in the project has a clear responsibility. For example, the ProductController only handles product-related HTTP requests and delegates business logic to the service layer.
 
 - **Open/Closed Principle (OCP):**  
-  Classes and components are designed to be open for extension but closed for modification. For example, when adding new features or behaviors to products, we can extend existing services (like ProductServiceImpl) without changing the core functionality.
+  Classes and components are designed to be open for extension but closed for modification. For example, when adding new features or behaviors to products, I can extend existing services (like ProductServiceImpl) without changing the core functionality.
 
 - **Liskov Substitution Principle (LSP):**  
   The implementation classes (such as ProductServiceImpl without affecting the correctness of the application.
 
 - **Interface Segregation Principle (ISP):**  
-  The project separates interfaces by specific tasks. Instead of one big interface, we have smaller and more focused interfaces. For example, CarService extends several smaller interfaces, each defining a specific set of behaviors for creation, retrieval, update, and deletion.
+  The project separates interfaces by specific tasks. Instead of one big interface, I have smaller and more focused interfaces. For example, CarService extends several smaller interfaces, each defining a specific set of behaviors for creation, retrieval, update, and deletion.
 
 - **Dependency Inversion Principle (DIP):**  
   High-level modules (like controllers) do not depend on low-level modules (concrete implementations) but rather on abstractions such as ProductService. This design decision is evident in the controllers which rely on interface-based autowiring provided by Spring.
@@ -67,3 +67,63 @@ base class or utility methods. These changes make the tests cleaner and easier t
 ---
 
 By adhering to SOLID principles, the project becomes more maintainable, modular, and easier to test. In contrast, neglecting these principles results in a tightly coupled and fragile codebase that is difficult to scale and maintain.
+
+
+## Refleciton 4
+
+Reflection on the TDD Process (Based on Percival, 2017)
+
+• Was Test-Driven Development (TDD) useful for this project?
+
+Using TDD helped clarify requirements before writing production code. It helped catch regressions early and guided decisions about how the code should be structured. It also encouraged writing more modular and testable code.
+
+However, there were times when the TDD process was not strictly followed (e.g., writing larger chunks of code before writing tests or omitting refactoring steps). When that happened, I spent more time debugging than I would have if I had adhered strictly to TDD.
+
+• Did the tests give confidence that the system behavior is correct?
+
+For parts of the project with strong test coverage (e.g., the Product, Order, and Payment model functionalities), the tests provided immediate feedback about potential issues, thus boosting confidence.
+In some complex scenarios (e.g., integrating Selenium-based functional tests with Spring Boot’s test context), I found that I needed additional integration and end-to-end tests to ensure correctness across multiple layers.
+
+• Were the tests fast, and did they encourage frequent test runs?
+
+Most unit tests ran quickly, which made it easier to run them repeatedly. Slow tests only became an issue in Selenium-based functional tests, which depend on browser manipulation. Future improvements could include mocking out more services or using headless browsers to speed up the feedback loop.
+
+• Did TDD help in maintaining good design?
+
+Writing tests first forced us to consider the public API of classes before coding their internals, often resulting in simpler methods. Whenever I discovered that a class or method was hard to test, it revealed potential design issues.
+
+Some enhancements are still needed (such as further decoupling of classes or reducing method complexity) to make testing and refactoring easier.
+
+• What could I improve next time?
+
+Write more granular test cases. Instead of testing multiple behaviors within a single test, I should isolate specific behaviors to make the tests clearer and more focused.
+Strictly follow the TDD red–green–refactor cycle. In some instances, I jumped directly to coding, which resulted in a shorter feedback cycle. Next time, I should break tasks into smaller steps and tackle them incrementally.
+
+Ensure that all key paths are tested, both success and failure scenarios (e.g., invalid inputs, exceptional states). A few tests still need to address more negative paths or boundary conditions.
+Reflection on F.I.R.S.T. Principles
+
+• Fast:
+
+Most unit tests were fairly quick to run. The main slowdown was from end-to-end browser tests, but those tests are inherently more time-consuming. Overall, I can still call the majority of tests “fast” enough.
+Next time, I might consider using a headless browser or a more streamlined approach to reduce test execution time in end-to-end tests.
+
+• Independent:
+
+The majority of tests do not rely on each other’s side effects (for example, the Product tests create a fresh Product object on each run). However, some integration tests might require additional cleanup or unique data to avoid collisions in the test environment.
+I will improve by ensuring that test data is completely reset or isolated between test runs to maintain full independence.
+
+• Repeatable:
+
+The tests pass reliably, both locally and in CI, provided the environment is set up consistently (e.g., all required services are running, or correct mocks are in place).
+I need to confirm that environment-dependent tests, especially functional tests with Selenium, always pass on different machines or CI servers. This means setting consistent environment variables or using container-based pipelines for stable test environments.
+
+• Self-Validating:
+
+Each test has clear assert statements, which produce a straightforward pass/fail result, so the outcome is unambiguous.
+In the future, I should continue writing clear, explicit assertions, and avoid checks that are too vague or rely solely on log output for “pass” criteria.
+
+• Timely:
+
+For much of the functionality, I wrote tests soon after or concurrently with the code. This is good, but not fully in line with TDD’s ideal of always writing tests first. In some cases, I ended up writing tests after implementing a significant portion of the logic.
+To improve on timeliness, I should consistently follow “test first” to drive the design of our features rather than testing after features are already in place.
+Overall, while our project has benefited from TDD and many of the tests meet the F.I.R.S.T. principles, there is still room for improvement, specifically in consistently applying TDD from the very beginning of each feature, breaking tests down into smaller chunks, and continuing to ensure test isolation. Our next iterations of testing will focus on addressing these insights.
